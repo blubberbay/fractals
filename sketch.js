@@ -15,13 +15,37 @@ var max_width = 1200;
 var max_branches = 12;
 var branches = 5
 
-class trunk {
-	constructor( type = 'line', length ){
-	this.type = type;
-	this.length = length;
+
+class curvyline {
+	constructor( x_rad = 0, arc_length, angle ) {
+		//arc length is the lenght we care about
+		// given x_rad and arc_length we need to back into y
+		//ultimately need to draw using arc(x,y,w,h)
+		this.x_rad = x_rad;
+		this.arc_length = arc_length;
+		this.angle = angle
+		
+		this.y = 0;
+		this.start = 0
+		this.stop = -angle
 	}
 	draw(){
+		noFill();
+		arc(-this.x_rad, this.y, this.rad, this.arc_length, this.start, this.stop );
+	}
+}
+
+class trunk {
+	constructor( type = 'line', length, angle ){
+	this.type = type;
+	this.length = length;
+	this.angle = angle;
+	}
+	draw(){
+	
+	rotate( this.angle );
 	line( 0, 0, 0,-this.length );
+	
 	}
 }
 
@@ -46,23 +70,23 @@ function draw() {
 
   stroke(255);
   translate(300, height);
-  rotate(slant)
-  branch(200 * len_frac ,branches);
+  
+  branch(200 * len_frac ,branches, slant);
 }
 
 function branch(len, branches) {
-  some_branch = new trunk('line', len)
+  some_branch = new trunk('line', len, slant)
   //line(0, 0, 0, -len);
   some_branch.draw();
   translate(0, -len);
   if (branches > 1) {
     push();
-    rotate(angle+slant);
-    branch(len * len_frac, branches - 1 );
+    rotate(angle);
+    branch(len * len_frac, branches - 1, angle+slant );
     pop();
     push();
-    rotate(-angle+slant);
-    branch(len * len_frac, branches - 1 );
+    rotate(-angle);
+    branch(len * len_frac, branches - 1, -angle + slant );
     pop();
   }
 
