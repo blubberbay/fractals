@@ -12,8 +12,20 @@ var slant_slider;
 var max_size_frac = 0.95;
 var max_height = 600;
 var max_width = 1200;
-var max_branches = 15;
+var max_branches = 12;
 var branches = 5
+
+class trunk {
+	constructor( type = 'line', length ){
+	this.type = type;
+	this.length = length;
+	}
+	draw(){
+	line( 0, 0, 0,-this.length );
+	}
+}
+
+
 
 function setup() {
   createCanvas(max_width, max_height );
@@ -39,7 +51,9 @@ function draw() {
 }
 
 function branch(len, branches) {
-  line(0, 0, 0, -len);
+  some_branch = new trunk('line', len)
+  //line(0, 0, 0, -len);
+  some_branch.draw();
   translate(0, -len);
   if (branches > 1) {
     push();
