@@ -4,25 +4,32 @@
 // Code for: https://youtu.be/fcdNSZ9IzJM
 
 
-var angle = Math.PI/4;
-var len_frac = 2/3;
-var num_branches = 5;
+var ANGLE = Math.PI/4;
+var LEN_FRAC = 2/3;
+var NUM_BRANCHES = 7;
 var radius = Math.PI/8;
-var windspeed = 0.05;
-var time = 0.02;
+var windspeed = 0.01;
+var time = 0;
+var forest_size = 10;
+var seed = 42;
+
 
 function setup() {
   createCanvas(600, 400);
   
-  angle_slider = createSlider(0, PI/2, angle, 0.01 );//TWO_PI, angle, 0.01);
-  len_slider = createSlider(0, .8, len_frac, 0.01);
-  branch_slider = createSlider(0, 12, num_branches, 1 );
+  angle_slider = createSlider(0, PI/2, ANGLE, 0.01 );//TWO_PI, ANGLE, 0.01);
+  len_slider = createSlider(0, .8, LEN_FRAC, 0.01);
+  branch_slider = createSlider(0, 12, NUM_BRANCHES, 1 );
   radius_slider = createSlider( 0, PI/2, radius, 0.01 );
-  wind_slider = createSlider( 0, 0.1, windspeed, 0.0001 );
+  wind_slider = createSlider( 0, 0.05, windspeed, 0.0001 );
+  forest_slider = createSlider( 0, 100, forest_size, 1 );
+  
+
 }
 
 
 function draw() {
+	randomSeed( seed );	
   background(51);
 
   angle = angle_slider.value();
@@ -30,15 +37,14 @@ function draw() {
   num_branches = branch_slider.value();
   radius = radius_slider.value();
   windspeed = wind_slider.value();
+  forest_size = forest_slider.value();
 
-  var slant = radius * sin( time );	
+    var slant = radius * sin( time );	
 
-  var a = createVector(width / 2, height);
-  var b = createVector(width / 2, height - 100);
+
+  var forest = new Forest( forest_size, angle, slant );
+  forest.show();
   
-  var tree = new Tree(width/2, height, 100, angle, len_frac, num_branches, slant );
-  tree.grow();
-  tree.show();
   
   time += windspeed;
   
