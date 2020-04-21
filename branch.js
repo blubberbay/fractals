@@ -7,6 +7,7 @@ function Branch(begin, end, angle, len_frac, slant) {
   this.len_frac = len_frac;
   this.angle = angle;
   this.slant = slant;
+  this.vector = p5.Vector.sub( this.end, this.begin );
 
   this.jitter = function() {
     this.end.x += random(-this.JITTER_RANGE, this.JITTER_RANGE);
@@ -15,6 +16,8 @@ function Branch(begin, end, angle, len_frac, slant) {
 
   this.show = function() {
     stroke(255);
+	strokeWeight( this.vector.mag() / MAX_BRANCH_LENGTH * ( MAX_STROKE_WEIGHT - MIN_STROKE_WEIGHT ) );
+
     line(this.begin.x, this.begin.y, this.end.x, this.end.y);
   };
 
