@@ -4,32 +4,38 @@
 // Code for: https://youtu.be/fcdNSZ9IzJM
 
 
-var ANGLE = Math.PI/4;
+var ANGLE = Math.PI/8;
 var LEN_FRAC = 2/3;
-var NUM_BRANCHES = 9;
+var MAX_BRANCHES = 9;
 var MIN_BRANCHES = 4
-var radius = Math.PI/8;
-var windspeed = 0.01;
+var MIN_TREE_FLEX = 0
+var MAX_TREE_FLEX = Math.PI/4;
+var windspeed = 0.1;
+var MAX_WIND_SPEED = .2;
 var time = 0;
 var forest_size = 10;
 var MAX_FOREST_SIZE = 20;
 var seed = 42;
 
+var num_branches = 6;
+
+var tree_flex = Math.PI/16;
 var MAX_STROKE_WEIGHT = 10;
 var MIN_STROKE_WEIGHT = 1;
 
 var MAX_BRANCH_LENGTH = 100;
 
+var LONG_FREQ = 1;
+var SHORT_FREQ = .1;
+var MID_FREQ = .5;
+
 function setup() {
-  createCanvas(600, 400);
-  
-  angle_slider = createSlider(0, PI/2, ANGLE, 0.01 );//TWO_PI, ANGLE, 0.01);
-  len_slider = createSlider(0, .8, LEN_FRAC, 0.01);
-  branch_slider = createSlider(0, 12, NUM_BRANCHES, 1 );
-  radius_slider = createSlider( 0, PI/2, radius, 0.01 );
-  wind_slider = createSlider( 0, 0.05, windspeed, 0.0001 );
-  forest_slider = createSlider( 0, MAX_FOREST_SIZE, forest_size, 1 );
-  
+	createCanvas(800, 400);
+
+	angle_slider = createSlider(0, PI/2, ANGLE, 0.01 );//TWO_PI, ANGLE, 0.01);
+
+	tree_flex_slider = createSlider(MIN_TREE_FLEX, MAX_TREE_FLEX, tree_flex, 0.001 );
+	wind_slider = createSlider( 0, MAX_WIND_SPEED, windspeed, 0.0001 );
 
 }
 
@@ -37,24 +43,23 @@ function keyPressed(){
 	seed = int( millis() )
 }
 
+function set_windspeed( pos=0) {
+	return sin( time * SHORT_FREQ ) +  .75 * sin( time * MID_FREQ + pos / width * TWO_PI ) //+ .25 * sin( time * LONG_FREQ   );
+
+}
+
 function draw() {
 	randomSeed( seed );	
-  background(51);
-
-  angle = angle_slider.value();
-  len_frac = len_slider.value();
-  num_branches = branch_slider.value();
-  radius = radius_slider.value();
-  windspeed = wind_slider.value();
-  forest_size = forest_slider.value();
-
-    var slant = radius * sin( time );	
+	background(51);
 
 
-  var forest = new Forest( forest_size, angle, slant );
-  forest.show();
+	angle = angle_slider.value();
+	tree_flex = tree_flex_slider.value();
+	windspeed = wind_slider.value();
   
+	var forest = new Forest( forest_size, angle );
+	forest.show();
   
-  time += windspeed;
+	time += windspeed;
   
 }

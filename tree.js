@@ -1,13 +1,23 @@
-function Tree( x, y, height,  angle, len_frac, num_levels, slant )
+function Tree( x, y, height,  angle, len_frac, num_levels, tree_flex )
 	{
+		
+		this.get_slant = function(){
+			return this.tree_flex * this.get_windspeed();
+		}
+		
+		this.get_windspeed = function(){
+			return set_windspeed( this.x )
+		}
+		
 		this.x = x;
 		this.y = y;
 		this.height = height;
 		this.angle = angle;
 		this.len_frac = len_frac;
 		this.num_levels = num_levels;
-		this.slant = slant;
+		this.tree_flex = tree_flex;
 		this.branches = [];
+		this.slant = this.get_slant()
 		
 		var begin = createVector(this.x, this.y );
 		var end = createVector(this.x, this.y - this.height * this.len_frac );
@@ -23,6 +33,7 @@ function Tree( x, y, height,  angle, len_frac, num_levels, slant )
 			this.branches[0] = root;
 		}
 		
+
 		this.grow = function(){
 		
 		for (var j = 1; j< this.num_levels; j++ )
