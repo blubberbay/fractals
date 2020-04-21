@@ -30,7 +30,8 @@ var SHORT_FREQ = .1;
 var MID_FREQ = .5;
 
 function setup() {
-	createCanvas(800, 400);
+	//createCanvas(800, 400);
+	createCanvas(windowWidth, windowHeight);
 
 	angle_slider = createSlider(0, PI/2, ANGLE, 0.01 );//TWO_PI, ANGLE, 0.01);
 
@@ -51,7 +52,9 @@ function set_windspeed( pos=0) {
 function draw() {
 	randomSeed( seed );	
 	background(51);
-
+	textSize(32);
+	text( 'Blubber Bays Fractal Page', width/4, 40 );
+	fill(255);
 
 	angle = angle_slider.value();
 	tree_flex = tree_flex_slider.value();
