@@ -5,7 +5,7 @@ function Forest(num_trees, angle ) {
 	
 	for( i = 0; i<num_trees; i++ )
 	{
-		var x = random(0, width);
+		var x = random(.25*width, .75*width);
 		
 		var num_branches = MAX_BRANCHES; //random( MIN_BRANCHES, MAX_BRANCHES );
 		var len_frac = random( .4, LEN_FRAC );

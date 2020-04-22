@@ -53,7 +53,7 @@ function draw() {
 	randomSeed( seed );	
 	background(51);
 	textSize(32);
-	text( 'Blubber Bays Fractal Page', width/4, 40 );
+	text( 'Blubber Bays Fractal Page', width/3, 40 );
 	fill(255);
 
 	angle = angle_slider.value();
