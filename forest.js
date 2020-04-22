@@ -8,8 +8,8 @@ function Forest(num_trees, angle ) {
 		var x = random(0, width);
 		
 		var num_branches = MAX_BRANCHES; //random( MIN_BRANCHES, MAX_BRANCHES );
-		var len_frac = random( .05, LEN_FRAC );
-		start_height = height - (LEN_FRAC - len_frac ) * height;
+		var len_frac = random( .4, LEN_FRAC );
+		start_height = height - 0.75*(LEN_FRAC - len_frac ) * height;
 
 		this.trunks[i] = createVector(x, start_height );
 		
