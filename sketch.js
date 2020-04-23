@@ -45,15 +45,15 @@ function keyPressed(){
 }
 
 function set_windspeed( pos=0) {
-	return sin( time * SHORT_FREQ ) +  .75 * sin( time * MID_FREQ + pos / width * TWO_PI ) //+ .25 * sin( time * LONG_FREQ   );
+	return sin( time * SHORT_FREQ ) +  .75 * sin( time * MID_FREQ + pos / width * PI * sin( time * SHORT_FREQ) ) //+ .25 * sin( time * LONG_FREQ   );
 
 }
 
 function draw() {
 	randomSeed( seed );	
 	background(51);
-	textSize(32);
-	text( 'Blubber Bays Fractal Page', width/3, 40 );
+	textSize(40);
+	text( 'Blubber Bay\'s Fractal Pages', width/3, 40 );
 	fill(255);
 
 	angle = angle_slider.value();
